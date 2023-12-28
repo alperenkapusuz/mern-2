@@ -1,6 +1,9 @@
-const mongose = require('mongoose');
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
-const UserSchema = new mongose.Schema({
+const Schema = mongoose.Schema;
+
+const UserSchema = new Schema({
   username: {
     type: String,
     required: true,
@@ -10,6 +13,13 @@ const UserSchema = new mongose.Schema({
     type: String,
     required: true,
   },
+  role: {
+    type:String,
+    enum: ['user', 'admin'],
+    default: 'user',
+  }
 });
 
-module.exports = mongose.model('User', UserSchema);
+const User = mongoose.model('User', UserSchema);
+
+module.exports = User;

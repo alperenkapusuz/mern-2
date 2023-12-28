@@ -19,9 +19,13 @@ exports.loginUser = async (req, res) => {
     const { username, password } = req.body;
     const user = await User.findOne({ username });
     if (!user) {
-      res.status(404).json({ message: 'Kullanıcı bulunamadı.' });
+      res.status(401).json({ message: 'Kullanıcı bulunamadı.' });
     }
     const passwordMatch = await bcrypt.compare(password, user.password);
+    console.log('Entered Password:', password);
+    console.log('Stored Password:', user.password);
+    console.log('Password Match:', passwordMatch);
+
     if (!passwordMatch) {
       res.status(401).json({ message: 'Hatalı Giriş' });
     }
