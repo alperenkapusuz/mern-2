@@ -10,7 +10,7 @@ exports.getAllTeams = async (req, res) => {
     if (leagueSlug) filter = { league: league._id };
     const teams = await Team.find(filter).sort('-createdAt');
     const leagues = await League.find({});
-    res.status(200).json({ data: { teams, leagues }, message: 'Teams fetched successfully', status: 200 });
+    res.status(200).json({ data: { teams }, message: 'Teams fetched successfully', status: 200 });
   } catch (err) {
     res.status(400).json({ message: err.message, status: 400 });
   }
