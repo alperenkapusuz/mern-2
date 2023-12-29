@@ -1,11 +1,11 @@
 const express = require('express');
 const teamController = require('../controllers/teamController');
-const verifyToken = require('../middleware/authMiddleware');
+const checkTokenAndRole = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
-router.route('/create').post(verifyToken, teamController.createTeam);
-router.route('/get').get(verifyToken, teamController.getAllTeams);
-router.route('/:slug').get(verifyToken, teamController.getTeam);
+router.route('/create').post(checkTokenAndRole(['admin']), teamController.createTeam);
+router.route('/get').get(checkTokenAndRole(['user', 'admin']), teamController.getAllTeams);
+router.route('/:slug').get(checkTokenAndRole(['user', 'admin']),teamController.getTeam);
 
 module.exports = router;

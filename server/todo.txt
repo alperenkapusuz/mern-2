@@ -1,2 +1,1 @@
-TODO kullanıcı rolüne göre futbolcu bilgileri getirme
 TODO search parametresinden gelen değere göre takım getirme
