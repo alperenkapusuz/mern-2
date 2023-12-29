@@ -32,8 +32,8 @@ const AuthLogin = () => {
   const { mutate: loginUser } = useMutation({
     mutationFn: loginUserFn,
     onSuccess: (data) => {
-      const token = data.data.data;
-      cookie.set('token', token, {
+      if(!data.data.data) return;
+      cookie.set('token', data.data.data, {
         expires: 1,
         sameSite: 'none',
         secure: true,
