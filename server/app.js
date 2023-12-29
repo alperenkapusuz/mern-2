@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const authRoute = require('./routes/authRoute');
 const teamRoute = require('./routes/teamRoute');
 const leagueRoute = require('./routes/leagueRoute');
+const footballerRoute = require('./routes/footballerRoute');
 const { PORT } = require('./constants/port');
 const { Log } = require('./utils/Log');
 
@@ -20,5 +21,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/auth', authRoute);
 app.use('/team', teamRoute);
 app.use('/league', leagueRoute);
+app.use('/footballer', footballerRoute);
 
 app.listen(PORT, () => Log(`Server ${PORT} portunda başlatıldı.`, 'GREEN'));

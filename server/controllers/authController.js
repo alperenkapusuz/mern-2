@@ -4,9 +4,9 @@ const jwt = require('jsonwebtoken');
 
 exports.registerUser = async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { username, password, name, role } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({ username, password: hashedPassword });
+    const user = new User({ name ,username, password: hashedPassword, role });
     await user.save();
     res.status(200).json({ message: 'Kullanıcı başarıyla kaydedildi.' });
   } catch (err) {
