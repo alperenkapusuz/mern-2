@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+var cors = require('cors')
 const authRoute = require('./routes/authRoute');
 const teamRoute = require('./routes/teamRoute');
 const leagueRoute = require('./routes/leagueRoute');
@@ -16,6 +17,7 @@ mongoose.connect('mongodb://localhost:27017/mern-2').then(() => Log('MongoDB baÄ
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors())
 
 //Routes
 app.use('/auth', authRoute);
