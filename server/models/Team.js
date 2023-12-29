@@ -13,7 +13,7 @@ const TeamSchema = new Schema({
     unique: true,
   },
   color: {
-    type: String,
+    type: [String],
     required: true,
   },
   mascot: {
@@ -21,7 +21,7 @@ const TeamSchema = new Schema({
     required: true,
   },
   squadValue: {
-    type: Number,
+    type: String,
     required: true,
   },
   coach: {
@@ -47,6 +47,7 @@ TeamSchema.pre('validate', function (next) {
     lower: true,
     strict: true,
   });
+  next();
 });
 
 const Team = mongoose.model('Team', TeamSchema);
