@@ -11,6 +11,7 @@ import cookie from 'js-cookie';
 import * as z from 'zod';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { END_POINTS } from '@/constants/end-points';
+import { useRouter } from 'next/navigation';
 
 export const formSchema = z.object({
   username: z.string().min(1, { message: 'Bu alanın doldurulması zorunludur.' }).email('This is not a valid email.'),
@@ -18,6 +19,8 @@ export const formSchema = z.object({
 });
 
 const AuthLogin = () => {
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -36,6 +39,7 @@ const AuthLogin = () => {
         sameSite: 'none',
         secure: true,
       });
+      router.push('/dashboard');
     },
   });
 
@@ -44,7 +48,7 @@ const AuthLogin = () => {
     loginUser(values);
   }
 
-  console.log('endpoint:' ,END_POINTS.AUTH.LOGIN)
+  console.log('endpoint:', END_POINTS.AUTH.LOGIN);
 
   return (
     <Card>
