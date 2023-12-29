@@ -18,7 +18,7 @@ const headers: Readonly<Record<string, string | boolean>> = {
 
 const injectToken = (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
   try {
-    const token = Cookies.get('authToken');
+    const token = Cookies.get('@token');
     if (token != undefined && token != null) {
       config.headers = config.headers || {};
       config.headers.Authorization = `Bearer ${token}`;
