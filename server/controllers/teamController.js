@@ -25,13 +25,29 @@ exports.createTeam = async (req, res) => {
   }
 };
 
-
 // TAKIM DETAYI GETIR
 exports.getTeam = async (req, res) => {
-    try {
-        const team = await Team.findOne({ slug: req.params.slug });
-        res.status(200).json({ data: team, message: 'Team fetched successfully', status: 200 });
-    } catch (err) {
-        res.status(400).json({ message: err.message, status: 400 });
+  try {
+    const team = await Team.findOne({ slug: req.params.slug });
+    res.status(200).json({ data: team, message: 'Team fetched successfully', status: 200 });
+  } catch (err) {
+    res.status(400).json({ message: err.message, status: 400 });
+  }
+};
+
+// TAKIM ARA
+exports.searchTeam = async (req, res) => {
+  try {
+    const { name } = req.body;
+    if (!name) {
+      res.status(400).json({ message: 'Name is required', status: 400 });
     }
-}
+    const teams = await Team.find({ name: { $regex: '.*' + name + '.*', $options: 'i' } }).sort('-createdAt');
+    if (teams === null) {
+      res.status(400).json({ message: 'No teams found', status: 400 });
+    }
+    res.status(200).json({ data: teams, message: 'Teams fetched successfully', status: 200 });
+  } catch (err) {
+    res.status(400).json({ message: err.message, status: 400 });
+  }
+};
