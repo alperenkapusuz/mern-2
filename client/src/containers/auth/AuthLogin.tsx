@@ -32,7 +32,6 @@ const AuthLogin = () => {
   const { mutate: loginUser } = useMutation({
     mutationFn: loginUserFn,
     onSuccess: (data) => {
-      console.log('login success', data);
       const token = data.data.data;
       cookie.set('token', token, {
         expires: 1,
@@ -44,11 +43,8 @@ const AuthLogin = () => {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log('login', values);
     loginUser(values);
   }
-
-  console.log('endpoint:', END_POINTS.AUTH.LOGIN);
 
   return (
     <Card>

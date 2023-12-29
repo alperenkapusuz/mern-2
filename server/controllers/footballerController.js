@@ -2,7 +2,6 @@ const Footballer = require('../models/Footballer');
 
 // FUTBOLCU OLUSTUR
 exports.createFootballer = async (req, res) => {
-  console.log('create footnaller');
   try {
     await Footballer.create(req.body);
     res.status(201).json({ message: 'Footballer created successfully', status: 201 });

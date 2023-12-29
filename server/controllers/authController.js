@@ -22,10 +22,6 @@ exports.loginUser = async (req, res) => {
       res.status(401).json({ message: 'Kullanıcı bulunamadı.', status: 401 });
     }
     const passwordMatch = await bcrypt.compare(password, user.password);
-    console.log('Entered Password:', password);
-    console.log('Stored Password:', user.password);
-    console.log('Password Match:', passwordMatch);
-
     if (!passwordMatch) {
       res.status(401).json({ message: 'Hatalı Giriş', status: 401 });
     }
