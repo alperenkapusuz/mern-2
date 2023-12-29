@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+const publicUrl = ['/', '/register'];
+
+const isPublicUrl = (url: string) => publicUrl.includes(url);
+
 export function middleware(req: NextRequest) {
   const {
     cookies,
@@ -7,11 +11,11 @@ export function middleware(req: NextRequest) {
   } = req;
   const { value: token } = cookies.get('token') ?? { value: null };
 
-  if (token && pathname === '/') {
+  if (token && isPublicUrl(pathname)) {
     const response = NextResponse.redirect(`${origin}/dashboard`);
     return response;
   }
-  if (!token && pathname !== '/') {
+  if (!token && !isPublicUrl(pathname)) {
     const response = NextResponse.redirect(`${origin}/`);
     return response;
   }

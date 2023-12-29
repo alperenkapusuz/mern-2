@@ -1,9 +1,8 @@
-import React from 'react'
+import AuthRegister from '@/containers/auth/AuthRegister';
+import React from 'react';
 
 const page = () => {
-  return (
-    <div>page</div>
-  )
-}
+  return <AuthRegister />;
+};
 
-export default page
+export default page;

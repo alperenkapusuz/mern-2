@@ -10,11 +10,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import cookie from 'js-cookie';
 import * as z from 'zod';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { END_POINTS } from '@/constants/end-points';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export const formSchema = z.object({
-  username: z.string().min(1, { message: 'Bu alanın doldurulması zorunludur.' }).email('This is not a valid email.'),
+  username: z.string().min(1, { message: 'Bu alanın doldurulması zorunludur.' }).email('Bu geçerli bir e-posta değil.'),
   password: z.string().min(1, { message: 'Bu alanın doldurulması zorunludur.' }),
 });
 
@@ -32,7 +32,7 @@ const AuthLogin = () => {
   const { mutate: loginUser } = useMutation({
     mutationFn: loginUserFn,
     onSuccess: (data) => {
-      if(!data.data.data) return;
+      if (!data.data.data) return;
       cookie.set('token', data.data.data, {
         expires: 1,
         sameSite: 'none',
@@ -48,8 +48,8 @@ const AuthLogin = () => {
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>Giriş Yap</CardTitle>
+      <CardHeader className="space-y-1">
+        <CardTitle className="text-2xl text-center">Giriş Yap</CardTitle>
       </CardHeader>
       <CardContent>
         <FormProvider {...form}>
@@ -80,9 +80,17 @@ const AuthLogin = () => {
                 </FormItem>
               )}
             />
-            <Button type="submit">Giriş Yap</Button>
+            <Button type="submit" className="w-full">
+              Giriş Yap
+            </Button>
           </form>
         </FormProvider>
+        <p className="mt-2 text-xs text-center text-gray-700">
+          Hesabın yok mu?
+          <Link href="/register">
+            <span className="text-blue-600 hover:underline cursor-pointer">Üye Ol</span>
+          </Link>
+        </p>
       </CardContent>
     </Card>
   );
