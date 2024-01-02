@@ -38,7 +38,7 @@ const AuthLogin = () => {
         sameSite: 'none',
         secure: true,
       });
-      router.push('/dashboard');
+      router.push('/leagues');
     },
   });
 

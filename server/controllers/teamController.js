@@ -5,10 +5,12 @@ const Team = require('../models/Team');
 exports.getAllTeams = async (req, res) => {
   try {
     const leagueSlug = req.query.league;
-    const league = await League.findOne({ slug: leagueSlug });
+    const league = await League.find({ slug: leagueSlug });
     let filter = {};
-    if (leagueSlug) filter = { league: league._id };
+    if (leagueSlug) filter = { league: league[0]._id.toString() };
+    console.log('FILTER: ', filter);
     const teams = await Team.find(filter).sort('-createdAt');
+    console.log('TEAMS: ', teams);
     res.status(200).json({ data: { teams }, message: 'Teams fetched successfully', status: 200 });
   } catch (err) {
     res.status(400).json({ message: err.message, status: 400 });
@@ -51,3 +53,8 @@ exports.searchTeam = async (req, res) => {
     res.status(400).json({ message: err.message, status: 400 });
   }
 };
+
+// LIGE GORE TAKIMLARI GETIR
+exports.getTeamsByLeague = async (req, res) => {
+    try{}catch(err){}
+}

@@ -5,6 +5,6 @@ const checkTokenAndRole = require('../middleware/authMiddleware');
 const router = express.Router();
 
 router.route('/create').post(checkTokenAndRole(['admin']), leagueController.createLeague);
-router.route('/get').get(checkTokenAndRole(['user', 'admin']), leagueController.getAllLeagues);
+router.route('/get').get(leagueController.getAllLeagues);
 
 module.exports = router;

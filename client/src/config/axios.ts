@@ -1,8 +1,8 @@
 // GELEN GUNCELLEMELER İLE DEGİSİKLİK GÖSTEREBİLİR
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import Cookies from 'js-cookie';
-import { API_URL } from './env';
 import { toast } from 'react-toastify';
+import { APIConfig } from './api';
 
 enum StatusCode {
   Unauthorized = 401,
@@ -19,7 +19,7 @@ const headers: Readonly<Record<string, string | boolean>> = {
 const injectToken = (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
   try {
     const token = Cookies.get('token');
-    if (token != undefined && token != null) {
+    if (token != undefined || token != null || token != '') {
       config.headers = config.headers || {};
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -38,7 +38,7 @@ class Http {
 
   initHttp() {
     const http = axios.create({
-      baseURL: API_URL,
+      baseURL: APIConfig.baseURL,
       headers,
       timeout: 1000 * 20,
     });
